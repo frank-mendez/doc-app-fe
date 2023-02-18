@@ -9,7 +9,6 @@ export const databaseProviders = [
       connection.then((result) => {
         console.log('result', result);
       });
-      console.log('connection', connection);
       return connection;
     },
   },
