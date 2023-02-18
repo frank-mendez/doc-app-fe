@@ -1,13 +1,13 @@
 import React from 'react'
 import 'antd/dist/reset.css'
-import { Button } from 'antd'
+import { BrowserRouter } from 'react-router-dom'
+import MainRoutes from './Routes/MainRoutes'
 
 function App() {
 	return (
-		<div className='p-5'>
-			<h1>Hello Doctor Appointment Boooking</h1>
-			<Button type='primary'>Button</Button>
-		</div>
+		<BrowserRouter>
+			<MainRoutes />
+		</BrowserRouter>
 	)
 }
 
