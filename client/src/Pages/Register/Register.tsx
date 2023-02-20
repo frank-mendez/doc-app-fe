@@ -1,5 +1,9 @@
-import { Button, Checkbox, Form, Input } from 'antd'
+import { Button, Form, Input } from 'antd'
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { Typography } from 'antd'
+
+const { Title } = Typography
 
 const Register = () => {
 	const onFinish = (values: any) => {
@@ -12,33 +16,25 @@ const Register = () => {
 
 	return (
 		<div className='registrationForm p-5'>
-			<Form
-				name='basic'
-				labelCol={{ span: 8 }}
-				wrapperCol={{ span: 16 }}
-				style={{ maxWidth: 600 }}
-				initialValues={{ remember: true }}
-				onFinish={onFinish}
-				onFinishFailed={onFinishFailed}
-				autoComplete='off'
-			>
-				<Form.Item label='Username' name='username' rules={[{ required: true, message: 'Please input your username!' }]}>
-					<Input />
+			<Title style={{ textAlign: 'center' }}>Welcome to Doctor Appointment Booking App</Title>
+			<Title style={{ textAlign: 'center' }} className='mx-auto' level={2}>
+				Register Here
+			</Title>
+			<Form name='basic' style={{ maxWidth: 400 }} onFinish={onFinish} onFinishFailed={onFinishFailed} layout='vertical' className='mx-auto'>
+				<Form.Item label='Full Name' name='fullName'>
+					<Input placeholder='Full Name' />
 				</Form.Item>
-
-				<Form.Item label='Password' name='password' rules={[{ required: true, message: 'Please input your password!' }]}>
-					<Input.Password />
+				<Form.Item label='Email' name='email'>
+					<Input placeholder='Email' />
 				</Form.Item>
-
-				<Form.Item name='remember' valuePropName='checked' wrapperCol={{ offset: 8, span: 16 }}>
-					<Checkbox>Remember me</Checkbox>
+				<Form.Item label='Password' name='password'>
+					<Input.Password placeholder='Password' />
 				</Form.Item>
-
-				<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-					<Button type='primary' htmlType='submit'>
-						Submit
-					</Button>
-				</Form.Item>
+				<Button type='primary' htmlType='submit'>
+					Submit
+				</Button>
+				<br />
+				<Link to={'/login'}>Login</Link>
 			</Form>
 		</div>
 	)
