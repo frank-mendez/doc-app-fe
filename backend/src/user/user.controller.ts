@@ -11,10 +11,15 @@ import {
 } from '@nestjs/common';
 import { UserRegisterDto } from './dto/user-register.dto';
 import * as bcrypt from 'bcrypt';
+import { UserLoginDto } from './dto/user-login.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly service: UserService) {}
+  constructor(
+    private readonly service: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   @Get()
   async index() {
@@ -42,5 +47,32 @@ export class UserController {
   @Delete(':id')
   async delete(@Param('id') id: string) {
     return await this.service.delete(id);
+  }
+
+  @Post('/login')
+  async login(@Body() userLoginDto: UserLoginDto) {
+    try {
+      const user = await this.service.findOne(userLoginDto.email);
+
+      if (user) {
+        const isMatch = await bcrypt.compare(
+          userLoginDto.password,
+          user.password,
+        );
+        if (isMatch) {
+          const token = this.jwtService.sign(
+            { id: user.email },
+            { secret: process.env.JWT_SECRET, expiresIn: '1d' },
+          );
+          return token;
+        } else {
+          throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+        }
+      } else {
+        throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+      }
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
   }
 }

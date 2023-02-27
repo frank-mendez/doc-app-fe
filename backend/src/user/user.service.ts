@@ -14,8 +14,8 @@ export class UserService {
     return await this.model.find().exec();
   }
 
-  async findOne(id: string): Promise<User> {
-    return await this.model.findById(id).exec();
+  async findOne(email: string): Promise<User> {
+    return await this.model.findOne({ email }).exec();
   }
 
   async register(userRegisterDto: UserRegisterDto): Promise<User> {

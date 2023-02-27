@@ -1,9 +1,22 @@
 import { Button, Form, Input } from 'antd'
+import axios from 'axios'
 import React from 'react'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
-	const onFinish = (values: any) => {
-		console.log('Success:', values)
+	const navigate = useNavigate()
+	const onFinish = async (values: any) => {
+		try {
+			const response = await axios.post('/users/login', values)
+			console.log('response login', response)
+			if (response.data) {
+				localStorage.setItem('token', response.data)
+				navigate('/')
+			}
+		} catch (error: any) {
+			toast.error(error.message)
+		}
 	}
 
 	const onFinishFailed = (errorInfo: any) => {
@@ -23,12 +36,12 @@ const Login = () => {
 				autoComplete='off'
 				className='mx-auto'
 			>
-				<Form.Item label='Username' name='username' rules={[{ required: true, message: 'Please input your username!' }]}>
-					<Input />
+				<Form.Item label='Email' name='email' rules={[{ required: true, message: 'Please input your Email' }]}>
+					<Input placeholder='Email' />
 				</Form.Item>
 
 				<Form.Item label='Password' name='password' rules={[{ required: true, message: 'Please input your password!' }]}>
-					<Input.Password />
+					<Input.Password placeholder='Password' />
 				</Form.Item>
 
 				<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
