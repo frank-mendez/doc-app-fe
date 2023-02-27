@@ -1,6 +1,16 @@
 import { UserService } from './user.service';
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { UserRegisterDto } from './dto/user-register.dto';
+import * as bcrypt from 'bcrypt';
 
 @Controller('users')
 export class UserController {
@@ -18,7 +28,15 @@ export class UserController {
 
   @Post()
   async create(@Body() userRegisterDto: UserRegisterDto) {
-    return await this.service.register(userRegisterDto);
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(userRegisterDto.password, salt);
+    userRegisterDto.password = hashedPassword;
+
+    try {
+      return await this.service.register(userRegisterDto);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_ACCEPTABLE);
+    }
   }
 
   @Delete(':id')
