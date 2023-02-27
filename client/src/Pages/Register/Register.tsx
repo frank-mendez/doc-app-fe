@@ -2,12 +2,21 @@ import { Button, Form, Input } from 'antd'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Typography } from 'antd'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 
 const { Title } = Typography
 
 const Register = () => {
-	const onFinish = (values: any) => {
-		console.log('Success:', values)
+	const onFinish = async (values: any) => {
+		try {
+			const response = await axios.post('/users', values)
+			if (response.data) {
+				toast.success('User Registered')
+			}
+		} catch (error: any) {
+			toast.error(error.response.data.message)
+		}
 	}
 
 	const onFinishFailed = (errorInfo: any) => {

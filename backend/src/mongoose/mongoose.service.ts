@@ -13,7 +13,7 @@ export class MongooseConfigService implements MongooseOptionsFactory {
       uri: process.env.MONGODB_URL,
       autoIndex: true,
       autoCreate: true,
-      dbName: 'NestJS',
+      dbName: process.env.MONGODB_DBNAME,
     };
   }
 }
