@@ -31,7 +31,7 @@ const Register = () => {
 			<Title style={{ textAlign: 'center' }} className='mx-auto' level={2}>
 				Register Here
 			</Title>
-			<Form name='basic' style={{ maxWidth: 400 }} onFinish={onFinish} onFinishFailed={onFinishFailed} layout='vertical' className='mx-auto'>
+			<Form name='register' style={{ maxWidth: 400 }} onFinish={onFinish} onFinishFailed={onFinishFailed} layout='vertical' className='mx-auto'>
 				<Form.Item label='Full Name' name='fullName'>
 					<Input placeholder='Full Name' />
 				</Form.Item>

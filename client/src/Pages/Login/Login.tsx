@@ -1,17 +1,18 @@
 import { Button, Form, Input } from 'antd'
+import Title from 'antd/es/typography/Title'
 import axios from 'axios'
 import React from 'react'
 import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
 	const navigate = useNavigate()
 	const onFinish = async (values: any) => {
 		try {
-			const response = await axios.post('/users/login', values)
+			const response = await axios.post('/auth/login', values)
 			console.log('response login', response)
 			if (response.data) {
-				localStorage.setItem('token', response.data)
+				localStorage.setItem('access_token', response.data.access_token)
 				navigate('/')
 			}
 		} catch (error: any) {
@@ -25,30 +26,22 @@ const Login = () => {
 
 	return (
 		<div className='loginForm p-5'>
-			<Form
-				name='basic'
-				labelCol={{ span: 8 }}
-				wrapperCol={{ span: 16 }}
-				style={{ maxWidth: 600 }}
-				initialValues={{ remember: true }}
-				onFinish={onFinish}
-				onFinishFailed={onFinishFailed}
-				autoComplete='off'
-				className='mx-auto'
-			>
-				<Form.Item label='Email' name='email' rules={[{ required: true, message: 'Please input your Email' }]}>
+			<Title style={{ textAlign: 'center' }}>Welcome to Doctor Appointment Booking App</Title>
+			<Title style={{ textAlign: 'center' }} className='mx-auto' level={2}>
+				Login Here
+			</Title>
+			<Form style={{ maxWidth: 400 }} name='login' onFinish={onFinish} onFinishFailed={onFinishFailed} layout='vertical' className='mx-auto'>
+				<Form.Item label='Email' name='username' rules={[{ required: true, message: 'Please input your Email' }]}>
 					<Input placeholder='Email' />
 				</Form.Item>
-
 				<Form.Item label='Password' name='password' rules={[{ required: true, message: 'Please input your password!' }]}>
 					<Input.Password placeholder='Password' />
 				</Form.Item>
-
-				<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-					<Button type='primary' htmlType='submit'>
-						Submit
-					</Button>
-				</Form.Item>
+				<Button type='primary' htmlType='submit'>
+					Submit
+				</Button>
+				<br />
+				<Link to={'/register'}>Register</Link> | <Link to={'/register'}>Forgot Password</Link>
 			</Form>
 		</div>
 	)
