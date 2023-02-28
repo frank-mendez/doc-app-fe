@@ -12,12 +12,13 @@ import {
 } from '@nestjs/common';
 import { UserRegisterDto } from './dto/user-register.dto';
 import * as bcrypt from 'bcrypt';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../auth/jwt.auth.guard';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly service: UserService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async index() {
     return await this.service.findAll();

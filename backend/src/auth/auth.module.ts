@@ -10,6 +10,7 @@ import { AuthController } from './auth.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import * as dotenv from 'dotenv';
+import { JwtStrategy } from './jwt.auth';
 dotenv.config();
 
 @Module({
@@ -23,7 +24,8 @@ dotenv.config();
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  providers: [AuthService, UserService, LocalStrategy],
+  providers: [AuthService, UserService, LocalStrategy, JwtStrategy],
+  exports: [AuthService],
   controllers: [AuthController],
 })
 export class AuthModule {}
