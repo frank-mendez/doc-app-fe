@@ -3,7 +3,7 @@ import { ILoginResponse } from './types'
 
 export const authApi = createApi({
 	reducerPath: 'authApi',
-	baseQuery: fetchBaseQuery({ baseUrl: `${process.env.BASE_URL}/auth` }),
+	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/auth' }),
 	tagTypes: ['Login'],
 	endpoints: (builder) => ({
 		submitLogin: builder.mutation<ILoginResponse, FormData>({

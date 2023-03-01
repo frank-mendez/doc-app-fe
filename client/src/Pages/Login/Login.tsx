@@ -20,7 +20,7 @@ const Login = () => {
 			console.log('data', data)
 		}
 		if (isError) {
-			console.log('dataError', data)
+			toast.error('Something is wrong')
 		}
 	}, [data, isError])
 
