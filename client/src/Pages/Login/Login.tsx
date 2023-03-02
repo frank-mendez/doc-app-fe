@@ -9,20 +9,14 @@ const Login = () => {
 	const [login, { isError, isLoading, data }] = useSubmitLoginMutation()
 	const onFinish = async (values: any) => {
 		try {
-			login(values)
+			const payload = { username: values.username, password: values.password }
+			await login(payload)
+				.then((result) => console.log('result', result))
+				.catch((error) => console.error(error))
 		} catch (error: any) {
 			toast.error(error.message)
 		}
 	}
-
-	useEffect(() => {
-		if (data) {
-			console.log('data', data)
-		}
-		if (isError) {
-			toast.error('Something is wrong')
-		}
-	}, [data, isError])
 
 	return (
 		<div className='loginForm p-5'>

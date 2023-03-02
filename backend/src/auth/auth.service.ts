@@ -1,3 +1,4 @@
+import { AuthDto } from './dto/auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
@@ -10,7 +11,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(username: string, password: string): Promise<any> {
+  async validateUser(authDto: AuthDto): Promise<any> {
+    const { username, password } = authDto;
     const user = await this.userService.findOne(username);
     console.log('user', user);
     if (!user) {

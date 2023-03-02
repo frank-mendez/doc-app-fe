@@ -1,19 +1,17 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { ILoginResponse } from './types'
 
 export const authApi = createApi({
 	reducerPath: 'authApi',
-	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/auth' }),
-	tagTypes: ['Login'],
+	baseQuery: fetchBaseQuery({
+		baseUrl: 'http://localhost:4000/auth/',
+	}),
 	endpoints: (builder) => ({
-		submitLogin: builder.mutation<ILoginResponse, FormData>({
+		submitLogin: builder.mutation({
 			query: (payload) => ({
-				url: '/login',
+				url: 'login',
 				method: 'POST',
 				body: payload,
 			}),
-			invalidatesTags: ['Login'],
-			transformResponse: (result: { data: { login: ILoginResponse } }) => result.data.login,
 		}),
 	}),
 })
