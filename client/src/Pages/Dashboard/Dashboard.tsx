@@ -1,18 +1,23 @@
-import React, { useEffect } from 'react'
-import { useGetUsersQuery } from '../../Reducer/Api/UserApi'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { User } from '../../Reducer/Features/authSlice'
+import { RootState } from '../../Reducer/Store'
 
 const Dashboard = () => {
-	const { data } = useGetUsersQuery('')
+	const user = useSelector<RootState, User>((state) => state.authUser.user)
+	const [firstName, setFirstName] = useState<string>('')
 
 	useEffect(() => {
-		if (data) {
-			console.log('data', data)
+		if (user.fullName) {
+			const fullNameArr = user.fullName.split(' ')
+			setFirstName(fullNameArr[0])
 		}
-	}, [data])
+	}, [user])
 
 	return (
 		<div className='p-5'>
-			<h1>Dashboard</h1>
+			<h1>Greetings {user && user.fullName ? firstName : 'User'}!</h1>
+			<h2>Welcome!</h2>
 		</div>
 	)
 }

@@ -14,13 +14,10 @@ export class AuthService {
   async validateUser(authDto: AuthDto): Promise<any> {
     const { username, password } = authDto;
     const user = await this.userService.findOne(username);
-    console.log('user', user);
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
     const passwordValid = await bcrypt.compare(password, user.password);
-
-    console.log('passwordValid', passwordValid);
 
     if (user && passwordValid) {
       return user;
@@ -30,9 +27,14 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const payload = { email: user.email, sub: user._id };
+    const payload = {
+      email: user.email,
+      id: user._id,
+      fullName: user.fullName,
+    };
     return {
       access_token: this.jwtService.sign(payload),
+      ...payload,
     };
   }
 }
