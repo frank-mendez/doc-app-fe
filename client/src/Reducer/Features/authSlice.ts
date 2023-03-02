@@ -8,10 +8,12 @@ export interface IUser {
 
 interface AuthState {
 	user?: IUser | null
+	token?: string | null
 }
 
 const initialState: AuthState = {
 	user: null,
+	token: null,
 }
 
 export const authSlice = createSlice({
@@ -22,9 +24,14 @@ export const authSlice = createSlice({
 		userInfo: (state, action: PayloadAction<AuthState>) => {
 			state.user = action.payload.user
 		},
+		saveJwt: (state, action) => {
+			const { payload } = action
+			localStorage.setItem('accessToken', payload)
+			state.token = payload
+		},
 	},
 })
 
-export const { logout, userInfo } = authSlice.actions
+export const { logout, userInfo, saveJwt } = authSlice.actions
 
 export default authSlice.reducer

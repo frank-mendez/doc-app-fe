@@ -2,21 +2,36 @@ import { Button, Col, Form, Input, Row, Space, Spin } from 'antd'
 import Title from 'antd/es/typography/Title'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { isErrorWithMessage, isFetchBaseQueryError } from '../../helper'
 import { useSubmitLoginMutation } from '../../Reducer/Api/AuthApi'
+import { saveJwt } from '../../Reducer/Features/authSlice'
 
 const Login = () => {
-	const [login, { isError, isLoading, data }] = useSubmitLoginMutation()
+	const dispatch = useDispatch()
+	const [login, { isLoading, data }] = useSubmitLoginMutation()
+	const navigate = useNavigate()
 	const onFinish = async (values: any) => {
 		try {
 			const payload = { username: values.username, password: values.password }
-			await login(payload)
-				.then((result) => console.log('result', result))
-				.catch((error) => console.error(error))
+			await login(payload).unwrap()
+			navigate('/')
 		} catch (error: any) {
-			toast.error(error.message)
+			if (isFetchBaseQueryError(error)) {
+				const errMsg = 'error' in error ? error.error : JSON.stringify(error.data)
+				toast.error(errMsg)
+			} else if (isErrorWithMessage(error)) {
+				toast.error(error.message)
+			}
 		}
 	}
+
+	useEffect(() => {
+		if (data) {
+			dispatch(saveJwt(data.access_token))
+		}
+	}, [data, dispatch])
 
 	return (
 		<div className='loginForm p-5'>
