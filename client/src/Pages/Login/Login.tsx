@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { isErrorWithMessage, isFetchBaseQueryError } from '../../helper'
+import { isErrorWithMessage, isFetchBaseQueryError, verifyToken } from '../../helper'
 import { useSubmitLoginMutation } from '../../Reducer/Api/AuthApi'
 import { saveJwt, userInfo } from '../../Reducer/Features/authSlice'
 
@@ -12,12 +12,21 @@ const Login = () => {
 	const dispatch = useDispatch()
 	const [login, { isLoading, data }] = useSubmitLoginMutation()
 	const navigate = useNavigate()
+
+	const token = localStorage.getItem('accessToken')
+	const isAuthenticated = token ? verifyToken(token) : false
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			navigate('/')
+		}
+	}, [isAuthenticated])
+
 	const onFinish = async (values: any) => {
 		try {
 			const payload = { username: values.username, password: values.password }
 			await login(payload).unwrap()
-			navigate('/')
-		} catch (error: any) {
+		} catch (error) {
 			if (isFetchBaseQueryError(error)) {
 				const errMsg = 'error' in error ? error.error : JSON.stringify(error.data)
 				toast.error(errMsg)
@@ -31,6 +40,7 @@ const Login = () => {
 		if (data) {
 			dispatch(saveJwt(data.access_token))
 			dispatch(userInfo({ email: data.email, fullName: data.fullName, id: data.id }))
+			navigate('/')
 		}
 	}, [data, dispatch])
 
