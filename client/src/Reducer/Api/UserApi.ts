@@ -10,7 +10,14 @@ export const userApi = createApi({
 				url: '/',
 			}),
 		}),
+		registerUser: builder.mutation({
+			query: (payload) => ({
+				url: '/',
+				method: 'POST',
+				body: payload,
+			}),
+		}),
 	}),
 })
 
-export const { useGetUsersQuery } = userApi
+export const { useGetUsersQuery, useRegisterUserMutation } = userApi

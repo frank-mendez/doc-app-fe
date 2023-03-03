@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { isErrorWithMessage, isFetchBaseQueryError, verifyToken } from '../../helper'
 import { useSubmitLoginMutation } from '../../Reducer/Api/AuthApi'
-import { saveJwt, userInfo } from '../../Reducer/Features/authSlice'
+import { saveJwt } from '../../Reducer/Features/authSlice'
 
 const Login = () => {
 	const dispatch = useDispatch()
@@ -39,7 +39,6 @@ const Login = () => {
 	useEffect(() => {
 		if (data) {
 			dispatch(saveJwt(data.access_token))
-			dispatch(userInfo({ email: data.email, fullName: data.fullName, id: data.id }))
 			navigate('/')
 		}
 	}, [data, dispatch])

@@ -4,7 +4,7 @@ import { User } from '../../Reducer/Features/authSlice'
 import { RootState } from '../../Reducer/Store'
 
 const Dashboard = () => {
-	const user = useSelector<RootState, User>((state) => state.authUser.user)
+	const user = useSelector<RootState, User>((state) => state.userDetails)
 	const [firstName, setFirstName] = useState<string>('')
 
 	useEffect(() => {
