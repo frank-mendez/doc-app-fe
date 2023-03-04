@@ -24,9 +24,16 @@ export class UserController {
     return await this.service.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async find(@Param('id') id: string) {
     return await this.service.findOne(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/details/:id')
+  async getUser(@Param('id') id: string) {
+    return await this.service.getUserDetail(id);
   }
 
   @Post()

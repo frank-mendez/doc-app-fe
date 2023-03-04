@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { LoginDto } from './types'
 
 export const authApi = createApi({
 	reducerPath: 'authApi',
@@ -7,7 +8,7 @@ export const authApi = createApi({
 	}),
 	endpoints: (builder) => ({
 		submitLogin: builder.mutation({
-			query: (payload) => ({
+			query: (payload: LoginDto) => ({
 				url: 'login',
 				method: 'POST',
 				body: payload,

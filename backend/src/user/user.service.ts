@@ -18,6 +18,10 @@ export class UserService {
     return await this.model.findOne({ email }).exec();
   }
 
+  async getUserDetail(id: string): Promise<User> {
+    return await this.model.findOne({ id }).select({ password: 0 }).exec();
+  }
+
   async register(userRegisterDto: UserRegisterDto): Promise<User> {
     return await new this.model({
       ...userRegisterDto,

@@ -1,5 +1,6 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { verify } from 'jsonwebtoken'
+import { UserAuthData } from './Reducer/Api/types'
 import { User } from './Reducer/Features/userSlice'
 
 /**
@@ -17,7 +18,6 @@ export function isErrorWithMessage(error: unknown): error is { message: string }
 }
 
 export const verifyToken = (token: string): boolean => {
-	console.log('process.env.REACT_APP_JWT_SECRET', process.env.REACT_APP_JWT_SECRET)
 	try {
 		verify(token, process.env.REACT_APP_JWT_SECRET as string, (err) => {
 			if (err) {
@@ -33,6 +33,20 @@ export const verifyToken = (token: string): boolean => {
 export const isAuthenticated = (): boolean => {
 	const token = localStorage.getItem('accessToken')
 	return token ? verifyToken(token) : false
+}
+
+export const userAuthData = (): UserAuthData | null => {
+	const token = localStorage.getItem('accessToken')
+	const userId = localStorage.getItem('userId')
+
+	if (token && userId && verifyToken(token)) {
+		return {
+			id: userId,
+			token: token,
+		}
+	}
+
+	return null
 }
 
 export interface ValidatedUser {

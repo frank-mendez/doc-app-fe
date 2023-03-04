@@ -2,12 +2,12 @@ import { Button, Col, Form, Input, Row, Space, Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Typography } from 'antd'
-import axios from 'axios'
 import toast from 'react-hot-toast'
 import { isErrorWithMessage, isFetchBaseQueryError, verifyToken } from '../../helper'
 import { useDispatch } from 'react-redux'
 import { useRegisterUserMutation } from '../../Reducer/Api/UserApi'
-import { saveJwt } from '../../Reducer/Features/authSlice'
+import { setAuthUser } from '../../Reducer/Features/authSlice'
+import { RegisterDto } from '../../Reducer/Api/types'
 
 const { Title } = Typography
 
@@ -26,7 +26,7 @@ const Register = () => {
 		}
 	}, [isAuthenticated])
 
-	const onFinish = async (values: any) => {
+	const onFinish = async (values: RegisterDto) => {
 		try {
 			await registerUser(values).unwrap()
 		} catch (error) {
@@ -41,7 +41,7 @@ const Register = () => {
 
 	useEffect(() => {
 		if (data) {
-			dispatch(saveJwt(data.access_token))
+			dispatch(setAuthUser(data))
 			navigate('/')
 		}
 	}, [data, dispatch])

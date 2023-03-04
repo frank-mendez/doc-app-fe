@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { RegisterDto, UserAuthData } from './types'
 
 export const userApi = createApi({
 	reducerPath: 'userApi',
@@ -11,13 +12,21 @@ export const userApi = createApi({
 			}),
 		}),
 		registerUser: builder.mutation({
-			query: (payload) => ({
+			query: (payload: RegisterDto) => ({
 				url: '/',
 				method: 'POST',
 				body: payload,
 			}),
 		}),
+		getUserDetails: builder.mutation({
+			query: (payload: UserAuthData) => ({
+				url: `/details/${payload.id}`,
+				headers: {
+					Authorization: `Bearer ${payload.token}`,
+				},
+			}),
+		}),
 	}),
 })
 
-export const { useGetUsersQuery, useRegisterUserMutation } = userApi
+export const { useGetUsersQuery, useRegisterUserMutation, useGetUserDetailsMutation } = userApi

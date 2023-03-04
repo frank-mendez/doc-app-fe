@@ -15,15 +15,16 @@ export const authSlice = createSlice({
 	initialState,
 	reducers: {
 		logout: () => initialState,
-		saveJwt: (state, action) => {
+		setAuthUser: (state, action) => {
 			const { payload } = action
-			localStorage.setItem('accessToken', payload)
+			localStorage.setItem('accessToken', payload.access_token)
+			localStorage.setItem('userId', payload.id)
 			state.token = payload
 			state.isAuthenticated = true
 		},
 	},
 })
 
-export const { logout, saveJwt } = authSlice.actions
+export const { logout, setAuthUser } = authSlice.actions
 
 export default authSlice.reducer

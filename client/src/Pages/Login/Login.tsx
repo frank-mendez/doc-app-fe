@@ -6,7 +6,8 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { isAuthenticated, isErrorWithMessage, isFetchBaseQueryError, verifyToken } from '../../helper'
 import { useSubmitLoginMutation } from '../../Reducer/Api/AuthApi'
-import { saveJwt } from '../../Reducer/Features/authSlice'
+import { LoginDto } from '../../Reducer/Api/types'
+import { setAuthUser } from '../../Reducer/Features/authSlice'
 
 const Login = () => {
 	const dispatch = useDispatch()
@@ -19,7 +20,7 @@ const Login = () => {
 		}
 	}, [isAuthenticated])
 
-	const onFinish = async (values: any) => {
+	const onFinish = async (values: LoginDto) => {
 		try {
 			const payload = { username: values.username, password: values.password }
 			await login(payload).unwrap()
@@ -35,7 +36,7 @@ const Login = () => {
 
 	useEffect(() => {
 		if (data) {
-			dispatch(saveJwt(data.access_token))
+			dispatch(setAuthUser(data))
 			navigate('/')
 		}
 	}, [data, dispatch])
