@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { User } from '../../Reducer/Features/authSlice'
+import { User } from '../../Reducer/Features/userSlice'
 import { RootState } from '../../Reducer/Store'
 
 const Dashboard = () => {

@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { isErrorWithMessage, isFetchBaseQueryError, verifyToken } from '../../helper'
+import { isAuthenticated, isErrorWithMessage, isFetchBaseQueryError, verifyToken } from '../../helper'
 import { useSubmitLoginMutation } from '../../Reducer/Api/AuthApi'
 import { saveJwt } from '../../Reducer/Features/authSlice'
 
@@ -13,11 +13,8 @@ const Login = () => {
 	const [login, { isLoading, data }] = useSubmitLoginMutation()
 	const navigate = useNavigate()
 
-	const token = localStorage.getItem('accessToken')
-	const isAuthenticated = token ? verifyToken(token) : false
-
 	useEffect(() => {
-		if (isAuthenticated) {
+		if (isAuthenticated()) {
 			navigate('/')
 		}
 	}, [isAuthenticated])

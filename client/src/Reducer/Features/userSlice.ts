@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { JwtPayload } from 'jsonwebtoken'
 
-export interface UserState {
-	id: string | null
-	email: string | null
-	fullName: string | null
+export interface User {
+	id: string | null | JwtPayload
+	email: string | null | JwtPayload
+	fullName: string | null | JwtPayload
 }
 
-const initialState: UserState = {
+const initialState: User = {
 	id: null,
 	email: null,
 	fullName: null,

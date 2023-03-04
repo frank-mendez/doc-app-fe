@@ -1,7 +1,6 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { verify } from 'jsonwebtoken'
-import * as dotenv from 'dotenv'
-dotenv.config()
+import { User } from './Reducer/Features/userSlice'
 
 /**
  * Type predicate to narrow an unknown error to `FetchBaseQueryError`
@@ -18,8 +17,9 @@ export function isErrorWithMessage(error: unknown): error is { message: string }
 }
 
 export const verifyToken = (token: string): boolean => {
+	console.log('process.env.REACT_APP_JWT_SECRET', process.env.REACT_APP_JWT_SECRET)
 	try {
-		verify(token, 'secret_token', (err) => {
+		verify(token, process.env.REACT_APP_JWT_SECRET as string, (err) => {
 			if (err) {
 				throw new Error(err.message)
 			}
@@ -28,4 +28,14 @@ export const verifyToken = (token: string): boolean => {
 	} catch (error) {
 		return false
 	}
+}
+
+export const isAuthenticated = (): boolean => {
+	const token = localStorage.getItem('accessToken')
+	return token ? verifyToken(token) : false
+}
+
+export interface ValidatedUser {
+	user: User
+	isAuthenticated: boolean
 }

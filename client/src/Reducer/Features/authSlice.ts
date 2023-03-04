@@ -1,17 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface User {
-	id: string | null
-	email: string | null
-	fullName: string | null
-}
-
-interface AuthState {
+export interface AuthState {
 	token?: string | null
+	isAuthenticated: boolean
 }
 
 const initialState: AuthState = {
 	token: null,
+	isAuthenticated: false,
 }
 
 export const authSlice = createSlice({
@@ -23,6 +19,7 @@ export const authSlice = createSlice({
 			const { payload } = action
 			localStorage.setItem('accessToken', payload)
 			state.token = payload
+			state.isAuthenticated = true
 		},
 	},
 })
