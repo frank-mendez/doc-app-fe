@@ -20,7 +20,8 @@ export const userSlice = createSlice({
 		setUser: (state, action) => {
 			const { payload } = action
 			state.id = payload.id
-			;(state.email = payload.email), (state.fullName = payload.fullName)
+			state.email = payload.email
+			state.fullName = payload.fullName
 		},
 	},
 })

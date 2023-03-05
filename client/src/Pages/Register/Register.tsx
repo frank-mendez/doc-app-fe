@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Typography } from 'antd'
 import toast from 'react-hot-toast'
-import { isErrorWithMessage, isFetchBaseQueryError, verifyToken } from '../../helper'
+import { isAuthenticated, isErrorWithMessage, isFetchBaseQueryError } from '../../helper'
 import { useDispatch } from 'react-redux'
 import { useRegisterUserMutation } from '../../Reducer/Api/UserApi'
 import { setAuthUser } from '../../Reducer/Features/authSlice'
@@ -17,14 +17,11 @@ const Register = () => {
 
 	const [registerUser, { isLoading, data }] = useRegisterUserMutation()
 
-	const token = localStorage.getItem('accessToken')
-	const isAuthenticated = token ? verifyToken(token) : false
-
 	useEffect(() => {
-		if (isAuthenticated) {
+		if (isAuthenticated()) {
 			navigate('/')
 		}
-	}, [isAuthenticated])
+	}, [navigate])
 
 	const onFinish = async (values: RegisterDto) => {
 		try {
@@ -44,7 +41,7 @@ const Register = () => {
 			dispatch(setAuthUser(data))
 			navigate('/')
 		}
-	}, [data, dispatch])
+	}, [data, dispatch, navigate])
 
 	return (
 		<div className='registrationForm p-5'>

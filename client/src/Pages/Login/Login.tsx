@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { isAuthenticated, isErrorWithMessage, isFetchBaseQueryError, verifyToken } from '../../helper'
+import { isAuthenticated, isErrorWithMessage, isFetchBaseQueryError } from '../../helper'
 import { useSubmitLoginMutation } from '../../Reducer/Api/AuthApi'
 import { LoginDto } from '../../Reducer/Api/types'
 import { setAuthUser } from '../../Reducer/Features/authSlice'
@@ -18,7 +18,7 @@ const Login = () => {
 		if (isAuthenticated()) {
 			navigate('/')
 		}
-	}, [isAuthenticated])
+	}, [navigate])
 
 	const onFinish = async (values: LoginDto) => {
 		try {
@@ -39,7 +39,7 @@ const Login = () => {
 			dispatch(setAuthUser(data))
 			navigate('/')
 		}
-	}, [data, dispatch])
+	}, [data, dispatch, navigate])
 
 	return (
 		<div className='loginForm p-5'>
