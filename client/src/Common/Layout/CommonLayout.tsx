@@ -1,10 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { userMenu } from '../Menu/Menu'
 import { LayoutProps } from '../types'
 import './CommonLayout.style.scss'
 
 const CommonLayout = ({ children }: LayoutProps) => {
+	const location = useLocation()
 	return (
 		<div className='main p-2'>
 			<div className='layout d-flex'>
@@ -15,7 +16,7 @@ const CommonLayout = ({ children }: LayoutProps) => {
 					<div className='menu'>
 						{userMenu.map((menu) => {
 							return (
-								<div className='d-flex menu-item'>
+								<div key={menu.name} className={`d-flex menu-item${location.pathname === menu.path ? '-active' : ''}`}>
 									<i className={menu.icon}></i>
 									<Link to={menu.path}>{menu.name}</Link>
 								</div>

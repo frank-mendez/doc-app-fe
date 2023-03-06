@@ -52,7 +52,6 @@
 			"last 1 safari version"
 		]
 	},
-	"proxy": "http://localhost:4000",
 	"devDependencies": {
 		"@types/jsonwebtoken": "^9.0.1",
 		"@types/node-sass": "^4.11.3",
