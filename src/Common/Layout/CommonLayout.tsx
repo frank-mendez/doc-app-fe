@@ -21,7 +21,7 @@ const CommonLayout = ({ children }: LayoutProps) => {
 						{userMenu.map((menu) => {
 							return (
 								<div key={menu.name} className={`d-flex menu-item${location.pathname === menu.path ? '-active' : ''}`}>
-									<i className={menu.icon}></i>
+									<i className={`${menu.icon} menu-icon`}></i>
 									<Link to={menu.path}>{menu.name}</Link>
 								</div>
 							)

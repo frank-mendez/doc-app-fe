@@ -60,11 +60,12 @@
 				font-size: 20px;
 				padding: 5px;
 				margin-top: 20px;
-				a {
-					text-decoration: none;
-					color: gray;
+				.menu-icon {
+					font-size: 30px;
 					cursor: pointer;
-					margin-left: 10px;
+				}
+				a {
+					display: none;
 				}
 			}
 
@@ -74,11 +75,12 @@
 				font-size: 20px;
 				padding: 5px;
 				margin-top: 20px;
-				a {
-					text-decoration: none;
-					color: white;
+				.menu-icon {
+					font-size: 30px;
 					cursor: pointer;
-					margin-left: 10px;
+				}
+				a {
+					display: none;
 				}
 			}
 		}
