@@ -3,7 +3,7 @@ import { RegisterDto, UserAuthData } from './types'
 
 export const userApi = createApi({
 	reducerPath: 'userApi',
-	baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_API_URL}/users` }),
+	baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_AWS_API_URL}/users` }),
 	tagTypes: ['Users'],
 	endpoints: (builder) => ({
 		getUsers: builder.query({
