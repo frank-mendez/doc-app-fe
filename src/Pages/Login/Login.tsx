@@ -43,7 +43,6 @@ const Login = () => {
 
 	return (
 		<div className='loginForm p-5'>
-			<Title style={{ textAlign: 'center' }}>Welcome to Doctor Appointment Booking App</Title>
 			<Title style={{ textAlign: 'center' }} className='mx-auto' level={2}>
 				Login Here
 			</Title>

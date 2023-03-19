@@ -4,9 +4,11 @@ export interface LoginDto {
 }
 
 export interface RegisterDto {
-	fullName: string
+	firstName: string
+	lastName: string
 	email: string
 	password: string
+	address?: string
 }
 
 export interface ILoginResponse {

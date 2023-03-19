@@ -1,51 +1,43 @@
-import { Button, Col, Form, Input, Row, Space, Spin } from 'antd'
-import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Button, Col, Form, Input, Result, Row, Space, Spin } from 'antd'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import { Typography } from 'antd'
 import toast from 'react-hot-toast'
-import { isAuthenticated, isErrorWithMessage, isFetchBaseQueryError } from '../../helper'
-import { useDispatch } from 'react-redux'
 import { useRegisterUserMutation } from '../../Reducer/Api/UserApi'
-import { setAuthUser } from '../../Reducer/Features/authSlice'
 import { RegisterDto } from '../../Reducer/Api/types'
+import './Register.style.scss'
 
 const { Title } = Typography
 
 const Register = () => {
-	const dispatch = useDispatch()
-	const navigate = useNavigate()
-
 	const [registerUser, { isLoading, data }] = useRegisterUserMutation()
-
-	useEffect(() => {
-		if (isAuthenticated()) {
-			navigate('/')
-		}
-	}, [navigate])
 
 	const onFinish = async (values: RegisterDto) => {
 		try {
 			await registerUser(values).unwrap()
-		} catch (error) {
-			if (isFetchBaseQueryError(error)) {
-				const errMsg = 'error' in error ? error.error : JSON.stringify(error.data)
-				toast.error(errMsg)
-			} else if (isErrorWithMessage(error)) {
-				toast.error(error.message)
+		} catch (error: any) {
+			console.log('error', error)
+			if (typeof error.data.message === 'string') {
+				toast.error('Email already in use')
+			} else {
+				for (let err of error.data.message) {
+					toast.error(err.charAt(0).toUpperCase() + err.slice(1))
+				}
 			}
 		}
 	}
 
-	useEffect(() => {
-		if (data) {
-			dispatch(setAuthUser(data))
-			navigate('/')
-		}
-	}, [data, dispatch, navigate])
+	const layout = {
+		labelCol: { span: 6 },
+		wrapperCol: { span: 16 },
+	}
+
+	const tailLayout = {
+		wrapperCol: { offset: 6, span: 16 },
+	}
 
 	return (
 		<div className='registrationForm p-5'>
-			<Title style={{ textAlign: 'center' }}>Welcome to Doctor Appointment Booking App</Title>
 			<Title style={{ textAlign: 'center' }} className='mx-auto' level={2}>
 				Register Here
 			</Title>
@@ -58,22 +50,53 @@ const Register = () => {
 					</Col>
 				</Row>
 			) : (
-				<Form name='register' style={{ maxWidth: 400 }} onFinish={onFinish} layout='vertical' className='mx-auto'>
-					<Form.Item label='Full Name' name='fullName'>
-						<Input placeholder='Full Name' />
-					</Form.Item>
-					<Form.Item label='Email' name='email'>
-						<Input placeholder='Email' />
-					</Form.Item>
-					<Form.Item label='Password' name='password'>
-						<Input.Password placeholder='Password' />
-					</Form.Item>
-					<Button type='primary' htmlType='submit'>
-						Submit
-					</Button>
-					<br />
-					<Link to={'/login'}>Login</Link>
-				</Form>
+				<div>
+					{data ? (
+						<Result
+							status='success'
+							title='Registration successful!'
+							subTitle={`Welcome to our website. ${data.data.message}`}
+							extra={[
+								<Button type='primary' key='dashboard'>
+									<Link to='/dashboard'>Go to Dashboard</Link>
+								</Button>,
+								<Button key='home'>
+									<Link to='/'>Go to Home</Link>
+								</Button>,
+							]}
+						/>
+					) : (
+						<Form {...layout} name='registration-form' onFinish={onFinish}>
+							<Form.Item label='First Name' name='firstName' rules={[{ required: true, message: 'Please input your first name!' }]}>
+								<Input />
+							</Form.Item>
+
+							<Form.Item label='Last Name' name='lastName' rules={[{ required: true, message: 'Please input your last name!' }]}>
+								<Input />
+							</Form.Item>
+
+							<Form.Item label='Email' name='email' rules={[{ required: true, type: 'email', message: 'Please input a valid email address!' }]}>
+								<Input />
+							</Form.Item>
+
+							<Form.Item label='Password' name='password' rules={[{ required: true, message: 'Please input a password!' }]}>
+								<Input.Password />
+							</Form.Item>
+
+							<Form.Item label='Address' name='address' rules={[{ required: true, message: 'Please input your address!' }]}>
+								<Input />
+							</Form.Item>
+
+							<Form.Item {...tailLayout}>
+								<Button type='primary' htmlType='submit'>
+									Register
+								</Button>
+								<br />
+								<Link to='/login'>Already have an account? Login</Link>
+							</Form.Item>
+						</Form>
+					)}
+				</div>
 			)}
 		</div>
 	)
