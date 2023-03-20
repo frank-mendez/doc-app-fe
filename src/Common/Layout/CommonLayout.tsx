@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { userMenu } from '../Menu/Menu'
 import { LayoutProps } from '../types'
 import './CommonLayout.style.scss'
+import Sidebar from './Sidebar'
 
 const CommonLayout = ({ children }: LayoutProps) => {
 	const location = useLocation()
@@ -13,21 +14,7 @@ const CommonLayout = ({ children }: LayoutProps) => {
 	return (
 		<div className='main p-2'>
 			<div className='layout d-flex'>
-				<div className={collapsed ? 'collapse-sidebar' : 'sidebar'}>
-					<div className='sidebar-header'>
-						<h1>App</h1>
-					</div>
-					<div className='menu'>
-						{userMenu.map((menu) => {
-							return (
-								<div key={menu.name} className={`d-flex menu-item${location.pathname === menu.path ? '-active' : ''}`}>
-									<i className={`${menu.icon} menu-icon`}></i>
-									<Link to={menu.path}>{menu.name}</Link>
-								</div>
-							)
-						})}
-					</div>
-				</div>
+				<Sidebar collapsed={collapsed} />
 				<div className='content'>
 					<div className='header'>
 						{!collapsed ? (
