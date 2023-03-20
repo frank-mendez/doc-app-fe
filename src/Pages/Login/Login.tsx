@@ -3,8 +3,8 @@ import Title from 'antd/es/typography/Title'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
-import { isAuthenticated, isErrorWithMessage, isFetchBaseQueryError } from '../../helper'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { isAuthenticated } from '../../helper'
 import { useSubmitLoginMutation } from '../../Reducer/Api/AuthApi'
 import { LoginDto } from '../../Reducer/Api/types'
 import { setAuthUser } from '../../Reducer/Features/authSlice'
@@ -12,6 +12,7 @@ import { setAuthUser } from '../../Reducer/Features/authSlice'
 const Login = () => {
 	const dispatch = useDispatch()
 	const [login, { isLoading, data }] = useSubmitLoginMutation()
+	const location = useLocation()
 	const navigate = useNavigate()
 
 	useEffect(() => {
@@ -20,17 +21,21 @@ const Login = () => {
 		}
 	}, [navigate])
 
+	useEffect(() => {
+		console.log('location', location.pathname)
+		if (location.pathname === '/logout') {
+			localStorage.removeItem('accessToken')
+			localStorage.removeItem('userId')
+			navigate('/login')
+		}
+	}, [location, navigate])
+
 	const onFinish = async (values: LoginDto) => {
 		try {
 			const payload = { username: values.username, password: values.password }
 			await login(payload).unwrap()
-		} catch (error) {
-			if (isFetchBaseQueryError(error)) {
-				const errMsg = 'error' in error ? error.error : JSON.stringify(error.data)
-				toast.error(errMsg)
-			} else if (isErrorWithMessage(error)) {
-				toast.error(error.message)
-			}
+		} catch (error: any) {
+			toast.error(error.data.message)
 		}
 	}
 

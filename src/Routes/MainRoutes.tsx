@@ -11,6 +11,7 @@ const MainRoutes = () => {
 		<Routes>
 			<Route path='/' element={<PrivateRoute outlet={<Dashboard />} />} />
 			<Route path='/login' element={<Login />} />
+			<Route path='/logout' element={<Login />} />
 			<Route path='/register' element={<Register />} />
 			<Route path='*' element={<NotFound />} />
 		</Routes>
