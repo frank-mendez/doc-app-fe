@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { LoginDto } from './types'
+import { LoginDto, ResetPasswordDto } from './types'
 
 export const authApi = createApi({
 	reducerPath: 'authApi',
@@ -14,7 +14,21 @@ export const authApi = createApi({
 				body: payload,
 			}),
 		}),
+		forgotPassword: builder.mutation({
+			query: (payload: { email: string }) => ({
+				url: '/email/forgot-password/',
+				method: 'POST',
+				body: payload,
+			}),
+		}),
+		resetPassword: builder.mutation({
+			query: (payload: ResetPasswordDto) => ({
+				url: '/email/reset-password',
+				method: 'POST',
+				body: payload,
+			}),
+		}),
 	}),
 })
 
-export const { useSubmitLoginMutation } = authApi
+export const { useSubmitLoginMutation, useForgotPasswordMutation, useResetPasswordMutation } = authApi

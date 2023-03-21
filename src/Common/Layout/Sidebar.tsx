@@ -2,6 +2,7 @@ import React from 'react'
 import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 import { HomeOutlined, CalendarOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
@@ -16,11 +17,11 @@ const Sidebar = (props: { collapsed: boolean }) => {
 		} as MenuItem
 	}
 	const items: MenuItem[] = [
-		getItem('Home', '1', <HomeOutlined />),
-		getItem('Appointments', '2', <CalendarOutlined />),
-		getItem('Apply Doctor', '3', <UserOutlined />),
-		getItem('Profile', '4', <UserOutlined />),
-		getItem('Logout', '5', <LogoutOutlined />),
+		getItem(<Link to='/'>Home</Link>, '1', <HomeOutlined />),
+		getItem(<Link to='/appointments'>Appointments</Link>, '2', <CalendarOutlined />),
+		getItem(<Link to='/apply-doctor'>Apply Doctor</Link>, '3', <UserOutlined />),
+		getItem(<Link to='/profile'>Profile</Link>, '4', <UserOutlined />),
+		getItem(<Link to='/logout'>Logout</Link>, '5', <LogoutOutlined />),
 	]
 	return <Menu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode='inline' theme='dark' inlineCollapsed={props.collapsed} items={items} />
 }

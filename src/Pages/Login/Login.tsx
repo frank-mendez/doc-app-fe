@@ -71,7 +71,7 @@ const Login = () => {
 						Submit
 					</Button>
 					<br />
-					<Link to={'/register'}>Register</Link> | <Link to={'/register'}>Forgot Password</Link>
+					<Link to={'/register'}>Register</Link> | <Link to={'/forgot-password'}>Forgot Password</Link>
 				</Form>
 			)}
 		</div>

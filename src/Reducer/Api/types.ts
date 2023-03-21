@@ -3,6 +3,13 @@ export interface LoginDto {
 	password: string
 }
 
+export interface ResetPasswordDto {
+	email: string
+	newPassword: string
+	newPasswordToken: string
+	currentPassword?: string | null
+}
+
 export interface RegisterDto {
 	firstName: string
 	lastName: string
