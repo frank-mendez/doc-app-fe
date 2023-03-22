@@ -1,21 +1,19 @@
 # Doctor Appointment Booking
 
-An appointment booking system that focus on Medical Doctors. The system can be use on small, medium, and enterprise level of medical facilities like clinics, hospitals and laboratories.
+A backend service for an appointment booking system that focus on Medical Doctors. The system can be use on small, medium, and enterprise level of medical facilities like clinics, hospitals and laboratories.
 
 ## Features
 
-- User can register as Patient or Doctor
-- Doctors can add Profile details and schedule
-- Patients can create an appointment with specific doctor
-- Doctors can accept or reject appointment
-- Patients can rate the experience of the appointment
-- Doctor can add notes based on the appointment
+- Authentication using JWTStategy
+- Email Verification using AWS SES
+- Forgot Password
+- Reset Password
 
 ## Tech Stack
 
-**Client:** React, Typescript, Ant Design, Bootstrap, Redux, Redux Toolkit, React Router Dom, RTK Query
+**Backend:** NestJS, MongoDB, Mongoose, JWT, Authentication: NestJS Passport Strategy: LocalStrategy and JwtStrategy
 
-**Server:** NestJS, MongoDB, Mongoose, JWT, Authentication: NestJS Passport Strategy: LocalStrategy and JwtStrategy
+**DevOps:** Docker, Serverless
 
 ## Documentation
 
@@ -34,10 +32,6 @@ To run this project, you will need to add the following environment variables to
 `JWT_SECRET`
 
 ### Frontend
-
-`REACT_APP_API_URL`
-
-`JWT_SECRET`
 
 ## Acknowledgements
 
