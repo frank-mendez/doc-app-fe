@@ -8,6 +8,8 @@ import { isAuthenticated } from '../../helper'
 import { useSubmitLoginMutation } from '../../Reducer/Api/AuthApi'
 import { LoginDto } from '../../Reducer/Api/types'
 import { setAuthUser } from '../../Reducer/Features/authSlice'
+import { LockOutlined, UserOutlined } from '@ant-design/icons'
+import './Login.style.scss'
 
 const Login = () => {
 	const dispatch = useDispatch()
@@ -60,18 +62,25 @@ const Login = () => {
 					</Col>
 				</Row>
 			) : (
-				<Form style={{ maxWidth: 400 }} name='login' onFinish={onFinish} layout='vertical' className='mx-auto'>
-					<Form.Item label='Email' name='username' rules={[{ required: true, message: 'Please input your Email' }]}>
-						<Input placeholder='Email' />
+				<Form name='normal_login' className='login-form' initialValues={{ remember: true }} onFinish={onFinish}>
+					<Form.Item name='username' rules={[{ required: true, message: 'Please input your Username!' }]}>
+						<Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Username' />
 					</Form.Item>
-					<Form.Item label='Password' name='password' rules={[{ required: true, message: 'Please input your password!' }]}>
-						<Input.Password placeholder='Password' />
+					<Form.Item name='password' rules={[{ required: true, message: 'Please input your Password!' }]}>
+						<Input prefix={<LockOutlined className='site-form-item-icon' />} type='password' placeholder='Password' />
 					</Form.Item>
-					<Button type='primary' htmlType='submit'>
-						Submit
-					</Button>
-					<br />
-					<Link to={'/register'}>Register</Link> | <Link to={'/forgot-password'}>Forgot Password</Link>
+					<Form.Item>
+						<Link className='login-form-forgot' to='/forgot-password'>
+							Forgot password
+						</Link>
+					</Form.Item>
+
+					<Form.Item>
+						<Button type='primary' htmlType='submit' className='login-form-button'>
+							Log in
+						</Button>
+						Or <Link to='/register'>register now!</Link>
+					</Form.Item>
 				</Form>
 			)}
 		</div>
