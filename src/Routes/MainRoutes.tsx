@@ -6,6 +6,7 @@ import Login from '../Pages/Login/Login'
 import NotFound from '../Pages/NotFound/NotFound'
 import Register from '../Pages/Register/Register'
 import ResetPassword from '../Pages/ResetPassword/ResetPassword'
+import VerifyUser from '../Pages/VerifyUser/VerifyUser'
 import PrivateRoute from './PrivateRoute'
 
 const MainRoutes = () => {
@@ -17,6 +18,7 @@ const MainRoutes = () => {
 			<Route path='/register' element={<Register />} />
 			<Route path='/forgot-password' element={<ForgotPassword />} />
 			<Route path='/reset-password/:token' element={<ResetPassword />} />
+			<Route path='/email/verify/:token' element={<VerifyUser />} />
 			<Route path='*' element={<NotFound />} />
 		</Routes>
 	)

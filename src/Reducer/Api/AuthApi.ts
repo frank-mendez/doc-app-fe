@@ -14,6 +14,11 @@ export const authApi = createApi({
 				body: payload,
 			}),
 		}),
+		verifyUser: builder.mutation({
+			query: (token: string) => ({
+				url: `/email/verify/${token}`,
+			}),
+		}),
 		forgotPassword: builder.mutation({
 			query: (payload: { email: string }) => ({
 				url: '/email/forgot-password/',
@@ -31,4 +36,4 @@ export const authApi = createApi({
 	}),
 })
 
-export const { useSubmitLoginMutation, useForgotPasswordMutation, useResetPasswordMutation } = authApi
+export const { useSubmitLoginMutation, useVerifyUserMutation, useForgotPasswordMutation, useResetPasswordMutation } = authApi
