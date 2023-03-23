@@ -7,7 +7,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { isAuthenticated } from '../../helper'
 import { useSubmitLoginMutation } from '../../Reducer/Api/AuthApi'
 import { LoginDto } from '../../Reducer/Api/types'
-import { setAuthUser } from '../../Reducer/Features/authSlice'
+import { logout, setAuthUser } from '../../Reducer/Features/authSlice'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import './Login.style.scss'
 
@@ -24,13 +24,13 @@ const Login = () => {
 	}, [navigate])
 
 	useEffect(() => {
-		console.log('location', location.pathname)
 		if (location.pathname === '/logout') {
 			localStorage.removeItem('accessToken')
 			localStorage.removeItem('userId')
+			dispatch(logout())
 			navigate('/login')
 		}
-	}, [location, navigate])
+	}, [location, navigate, dispatch])
 
 	const onFinish = async (values: LoginDto) => {
 		try {
