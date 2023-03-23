@@ -43,6 +43,7 @@ const Login = () => {
 
 	useEffect(() => {
 		if (data) {
+			console.log('data', data)
 			dispatch(setAuthUser(data))
 			navigate('/')
 		}

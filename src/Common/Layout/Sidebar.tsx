@@ -23,6 +23,15 @@ const Sidebar = (props: { collapsed: boolean }) => {
 		getItem(<Link to='/profile'>Profile</Link>, '4', <UserOutlined />),
 		getItem(<Link to='/logout'>Logout</Link>, '5', <LogoutOutlined />),
 	]
+
+	const adminMenuItems: MenuItem[] = [
+		getItem(<Link to='/'>Home</Link>, '1', <HomeOutlined />),
+		getItem(<Link to='/users'>Users</Link>, '3', <UserOutlined />),
+		getItem(<Link to='/doctors'>Doctors</Link>, '3', <UserOutlined />),
+		getItem(<Link to='/profile'>Profile</Link>, '4', <UserOutlined />),
+		getItem(<Link to='/logout'>Logout</Link>, '5', <LogoutOutlined />),
+	]
+
 	return <Menu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode='inline' theme='dark' inlineCollapsed={props.collapsed} items={items} />
 }
 
