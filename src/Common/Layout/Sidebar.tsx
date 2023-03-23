@@ -1,15 +1,18 @@
-import React from 'react'
-import type { MenuProps } from 'antd'
+import React, { useState } from 'react'
+import { Layout, MenuProps } from 'antd'
 import { Menu } from 'antd'
 import { HomeOutlined, CalendarOutlined, UserOutlined, LogoutOutlined, MedicineBoxOutlined, SettingOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../Reducer/Store'
 
+const { Sider } = Layout
+
 type MenuItem = Required<MenuProps>['items'][number]
 
-const Sidebar = (props: { collapsed: boolean }) => {
+const Sidebar = () => {
 	const user = useSelector((state: RootState) => state.authUser)
+	const [collapsed, setCollapsed] = useState(false)
 
 	console.log('user', user)
 
@@ -39,14 +42,17 @@ const Sidebar = (props: { collapsed: boolean }) => {
 	]
 
 	return (
-		<Menu
-			defaultSelectedKeys={['1']}
-			defaultOpenKeys={['sub1']}
-			mode='inline'
-			theme='dark'
-			inlineCollapsed={props.collapsed}
-			items={user.isAdmin ? adminMenuItems : items}
-		/>
+		<Sider className='sidebar' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+			<div style={{ height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)' }} />
+			<Menu
+				className='sidebar-menu'
+				defaultSelectedKeys={['1']}
+				defaultOpenKeys={['sub1']}
+				mode='inline'
+				theme='dark'
+				items={user.isAdmin ? adminMenuItems : items}
+			/>
+		</Sider>
 	)
 }
 

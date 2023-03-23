@@ -1,22 +1,33 @@
-import React, { useState } from 'react'
+import { Breadcrumb, Layout, theme } from 'antd'
+import React from 'react'
 import { LayoutProps } from '../types'
-import './CommonLayout.style.scss'
-import Header from './Header'
+import CommonFooter from './CommonFooter'
+import CommonHeader from './CommonHeader'
 import Sidebar from './Sidebar'
+import './CommonLayout.style.scss'
+
+const { Content } = Layout
 
 const CommonLayout = ({ children }: LayoutProps) => {
-	const [collapsed, setCollapsed] = useState<boolean>(false)
+	const {
+		token: { colorBgContainer },
+	} = theme.useToken()
 
 	return (
-		<div className='main p-2'>
-			<div className='layout d-flex'>
-				<Sidebar collapsed={collapsed} />
-				<div className='content'>
-					<Header collapsed={collapsed} setCollapsed={setCollapsed} />
-					<div className='body'>{children}</div>
-				</div>
-			</div>
-		</div>
+		<Layout className='main'>
+			<Sidebar />
+			<Layout className='site-layout'>
+				<CommonHeader />
+				<Content style={{ margin: '0 16px' }}>
+					<Breadcrumb style={{ margin: '16px 0' }}>
+						<Breadcrumb.Item>User</Breadcrumb.Item>
+						<Breadcrumb.Item>Bill</Breadcrumb.Item>
+					</Breadcrumb>
+					<div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>{children}</div>
+				</Content>
+				<CommonFooter />
+			</Layout>
+		</Layout>
 	)
 }
 

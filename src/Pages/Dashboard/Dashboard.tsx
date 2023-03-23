@@ -1,16 +1,15 @@
 import React from 'react'
-import CommonLayout from '../../Common/Layout/CommonLayout'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../Reducer/Store'
 
 const Dashboard = () => {
-	const Output = () => {
-		return (
-			<div>
-				<h1>Dashboard</h1>
-			</div>
-		)
-	}
+	const user = useSelector((state: RootState) => state.userDetails)
 
-	return <CommonLayout children={<Output />} />
+	return (
+		<div>
+			<h1>{`Hello ${user.firstName}`}</h1>
+		</div>
+	)
 }
 
 export default Dashboard

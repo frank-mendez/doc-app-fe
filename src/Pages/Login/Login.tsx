@@ -10,6 +10,7 @@ import { LoginDto } from '../../Reducer/Api/types'
 import { logout, setAuthUser } from '../../Reducer/Features/authSlice'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import './Login.style.scss'
+import { removeUser, setUser } from '../../Reducer/Features/userSlice'
 
 const Login = () => {
 	const dispatch = useDispatch()
@@ -28,6 +29,7 @@ const Login = () => {
 			localStorage.removeItem('accessToken')
 			localStorage.removeItem('userId')
 			dispatch(logout())
+			dispatch(removeUser())
 			navigate('/login')
 		}
 	}, [location, navigate, dispatch])
@@ -45,6 +47,7 @@ const Login = () => {
 		if (data) {
 			console.log('data', data)
 			dispatch(setAuthUser(data))
+			dispatch(setUser(data))
 			navigate('/')
 		}
 	}, [data, dispatch, navigate])
