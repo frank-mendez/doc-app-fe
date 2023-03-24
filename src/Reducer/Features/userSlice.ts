@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { JwtPayload } from 'jsonwebtoken'
 
 export interface User {
 	id: string | null
