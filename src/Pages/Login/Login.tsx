@@ -31,6 +31,8 @@ const Login = () => {
 			dispatch(logout())
 			dispatch(removeUser())
 			navigate('/login')
+		} else if (location.pathname !== '/login') {
+			navigate('/login')
 		}
 	}, [location, navigate, dispatch])
 
@@ -45,7 +47,6 @@ const Login = () => {
 
 	useEffect(() => {
 		if (data) {
-			console.log('data', data)
 			dispatch(setAuthUser(data))
 			dispatch(setUser(data))
 			navigate('/')

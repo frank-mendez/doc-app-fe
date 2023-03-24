@@ -14,6 +14,9 @@ import Sidebar from '../Common/Layout/Sidebar'
 import CommonHeader from '../Common/Layout/CommonHeader'
 import CommonFooter from '../Common/Layout/CommonFooter'
 import { isAuthenticated } from '../helper'
+import Profile from '../Pages/Profile/Profile'
+import ApplyDoctor from '../Pages/Doctors/ApplyDoctor/ApplyDoctor'
+import Appointments from '../Pages/Appointments/Appointments'
 
 const { Content } = Layout
 
@@ -21,24 +24,6 @@ interface RouteItem {
 	path: string
 	element: JSX.Element
 }
-
-const privateRoutes: RouteItem[] = [
-	{ path: '/', element: <Dashboard /> },
-	{ path: '/users', element: <Users /> },
-	{ path: '/doctors', element: <Doctors /> },
-	{ path: '/logout', element: <Login /> },
-	{ path: '*', element: <Dashboard /> },
-]
-
-const publicRoutes: RouteItem[] = [
-	{ path: '/login', element: <Login /> },
-	{ path: '/logout', element: <Login /> },
-	{ path: '/register', element: <Register /> },
-	{ path: '/forgot-password', element: <ForgotPassword /> },
-	{ path: '/reset-password/:token', element: <ResetPassword /> },
-	{ path: '/email/verify/:token', element: <VerifyUser /> },
-	{ path: '*', element: <Login /> },
-]
 
 const MainRoutes = () => {
 	const {
@@ -51,6 +36,27 @@ const MainRoutes = () => {
 	useEffect(() => {
 		setIsAuth(isAuthenticated())
 	}, [isAuth, setIsAuth, location])
+
+	const privateRoutes: RouteItem[] = [
+		{ path: '/apply-doctor', element: <ApplyDoctor /> },
+		{ path: '/appointments', element: <Appointments /> },
+		{ path: '/', element: <Dashboard /> },
+		{ path: '*', element: <Dashboard /> },
+		{ path: '/doctors', element: <Doctors /> },
+		{ path: '/logout', element: <Login /> },
+		{ path: '/profile', element: <Profile /> },
+		{ path: '/users', element: <Users /> },
+	]
+
+	const publicRoutes: RouteItem[] = [
+		{ path: '/forgot-password', element: <ForgotPassword /> },
+		{ path: '/login', element: <Login /> },
+		{ path: '/logout', element: <Login /> },
+		{ path: '*', element: <Login /> },
+		{ path: '/register', element: <Register /> },
+		{ path: '/reset-password/:token', element: <ResetPassword /> },
+		{ path: '/email/verify/:token', element: <VerifyUser /> },
+	]
 
 	return (
 		<Fragment>
