@@ -3,6 +3,7 @@ import { Avatar, Badge, Dropdown, Layout, MenuProps, theme } from 'antd'
 import { BellOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../Reducer/Store'
+import { Link } from 'react-router-dom'
 
 const { Header } = Layout
 
@@ -23,13 +24,15 @@ const CommonHeader = () => {
 			<div style={{ float: 'right' }}>
 				<Dropdown menu={{ items }} trigger={['click']}>
 					<Badge count={items.length}>
-						<BellOutlined style={{ fontSize: '18px' }} />
+						<BellOutlined style={{ fontSize: '18px', cursor: 'pointer' }} />
 					</Badge>
 				</Dropdown>
 				<Avatar size='small' style={{ marginLeft: '16px' }}>
 					{user.firstName?.charAt(0)}
 				</Avatar>
-				<span style={{ marginLeft: '8px' }}>{user.firstName}</span>
+				<Link to='/profile'>
+					<span style={{ marginLeft: '8px' }}>{user.firstName}</span>
+				</Link>
 			</div>
 		</Header>
 	)

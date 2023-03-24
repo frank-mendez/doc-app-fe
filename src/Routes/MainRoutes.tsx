@@ -63,14 +63,14 @@ const MainRoutes = () => {
 			{isAuth ? (
 				<Layout className='main'>
 					<Sidebar />
-					<Layout className='site-layout'>
+					<Layout style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }} className='site-layout'>
 						<CommonHeader />
 						<Content style={{ margin: '0 16px' }}>
 							<Breadcrumb style={{ margin: '16px 0' }}>
 								<Breadcrumb.Item>User</Breadcrumb.Item>
 								<Breadcrumb.Item>Bill</Breadcrumb.Item>
 							</Breadcrumb>
-							<div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>
+							<div style={{ padding: 24, background: colorBgContainer }}>
 								<Routes>
 									{privateRoutes.map((route) => {
 										return <Route key={route.path} path={route.path} element={route.element} />
