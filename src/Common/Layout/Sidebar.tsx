@@ -14,8 +14,6 @@ const Sidebar = () => {
 	const user = useSelector((state: RootState) => state.authUser)
 	const [collapsed, setCollapsed] = useState(false)
 
-	console.log('user', user)
-
 	const getItem = (label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[], type?: 'group'): MenuItem => {
 		return {
 			key,

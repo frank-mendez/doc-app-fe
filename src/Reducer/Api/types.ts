@@ -18,6 +18,20 @@ export interface RegisterDto {
 	address?: string
 }
 
+export interface ApplyDoctorAccountDto {
+	firstName: string
+	lastName: string
+	phoneNumber: string
+	website: string
+	address: string
+	specialization: string
+	experience: number
+	consultationFee: number
+	consultationSchedule: [string]
+	userId: string
+	token: string
+}
+
 export interface ILoginResponse {
 	access_token: string
 }

@@ -16,7 +16,6 @@ const Register = () => {
 		try {
 			await registerUser(values).unwrap()
 		} catch (error: any) {
-			console.log('error', error)
 			if (typeof error.data.message === 'string') {
 				toast.error('Email already in use')
 			} else {

@@ -1,3 +1,4 @@
+import { doctorApi } from './Api/DoctorApi'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { authApi } from './Api/AuthApi'
@@ -15,6 +16,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
 	[authApi.reducerPath]: authApi.reducer,
 	[userApi.reducerPath]: userApi.reducer,
+	[doctorApi.reducerPath]: doctorApi.reducer,
 	authUser: authReducer,
 	userDetails: userReducer,
 })
@@ -28,7 +30,7 @@ export const store = configureStore({
 			serializableCheck: {
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 			},
-		}).concat([authApi.middleware, userApi.middleware]),
+		}).concat([authApi.middleware, userApi.middleware, doctorApi.middleware]),
 	devTools: process.env.NODE_ENV !== 'production',
 })
 
