@@ -26,7 +26,15 @@ export const userApi = createApi({
 				},
 			}),
 		}),
+		getAdminUnseenNotifications: builder.mutation({
+			query: (payload: { token: string }) => ({
+				url: '/admin/unseen-notifications',
+				headers: {
+					Authorization: `Bearer ${payload.token}`,
+				},
+			}),
+		}),
 	}),
 })
 
-export const { useGetUsersQuery, useRegisterUserMutation, useGetUserDetailsMutation } = userApi
+export const { useGetUsersQuery, useRegisterUserMutation, useGetUserDetailsMutation, useGetAdminUnseenNotificationsMutation } = userApi
