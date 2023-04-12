@@ -1,4 +1,4 @@
-import { Breadcrumb, Layout, theme } from 'antd'
+import { Layout, theme } from 'antd'
 import React, { Fragment, useEffect, useState } from 'react'
 import '../Common/Layout/CommonLayout.style.scss'
 import { Route, Routes, useLocation } from 'react-router-dom'
@@ -17,6 +17,8 @@ import { isAuthenticated } from '../helper'
 import Profile from '../Pages/Profile/Profile'
 import ApplyDoctor from '../Pages/Doctors/ApplyDoctor/ApplyDoctor'
 import Appointments from '../Pages/Appointments/Appointments'
+import Notifications from '../Pages/Notifications/Notifications'
+import CommonBreadcrumbs from '../Common/Layout/CommonBreadcrumbs'
 
 const { Content } = Layout
 
@@ -46,6 +48,7 @@ const MainRoutes = () => {
 		{ path: '/logout', element: <Login /> },
 		{ path: '/profile', element: <Profile /> },
 		{ path: '/users', element: <Users /> },
+		{ path: '/notifications', element: <Notifications /> },
 	]
 
 	const publicRoutes: RouteItem[] = [
@@ -66,10 +69,7 @@ const MainRoutes = () => {
 					<Layout style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }} className='site-layout'>
 						<CommonHeader />
 						<Content style={{ margin: '0 16px' }}>
-							<Breadcrumb style={{ margin: '16px 0' }}>
-								<Breadcrumb.Item>User</Breadcrumb.Item>
-								<Breadcrumb.Item>Bill</Breadcrumb.Item>
-							</Breadcrumb>
+							<CommonBreadcrumbs />
 							<div style={{ padding: 24, background: colorBgContainer }}>
 								<Routes>
 									{privateRoutes.map((route) => {

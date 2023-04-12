@@ -4,12 +4,16 @@ export interface User {
 	id: string | null
 	email: string | null
 	firstName: string | null
+	unseenNotifications: any
+	seenNotifications: any
 }
 
 const initialState: User = {
 	id: null,
 	email: null,
 	firstName: null,
+	unseenNotifications: [],
+	seenNotifications: [],
 }
 
 export const userSlice = createSlice({
@@ -23,9 +27,18 @@ export const userSlice = createSlice({
 			state.email = payload.data.email
 			state.firstName = payload.data.firstName
 		},
+		setUnseenNotifications: (state, action) => {
+			const { payload } = action
+			console.log('payload', payload)
+			state.unseenNotifications = payload
+		},
+		setSeenNotifications: (state, action) => {
+			const { payload } = action
+			state.seenNotifications = payload
+		},
 	},
 })
 
-export const { setUser, removeUser } = userSlice.actions
+export const { setUser, removeUser, setUnseenNotifications, setSeenNotifications } = userSlice.actions
 
 export default userSlice.reducer
