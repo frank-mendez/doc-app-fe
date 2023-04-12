@@ -5,6 +5,7 @@ import { useApplyDoctorAccountMutation } from '../../../Reducer/Api/DoctorApi'
 import { ApplyDoctorAccountDto } from '../../../Reducer/Api/types'
 import { toast } from 'react-hot-toast'
 import { Link } from 'react-router-dom'
+import CommonLoading from '../../../Common/Layout/CommonLoading'
 
 const { Title } = Typography
 
@@ -43,13 +44,7 @@ const ApplyDoctor = () => {
 				Apply Doctor Account
 			</Title>
 			{isLoading ? (
-				<Row>
-					<Col span={8} offset={8}>
-						<Space style={{ marginLeft: '48%' }} align='center' size='middle'>
-							<Spin tip='Loading' size='large' />
-						</Space>
-					</Col>
-				</Row>
+				<CommonLoading />
 			) : (
 				<Fragment>
 					{data ? (

@@ -34,7 +34,41 @@ export const userApi = createApi({
 				},
 			}),
 		}),
+		getAdminSeenNotifications: builder.mutation({
+			query: (payload: { token: string }) => ({
+				url: '/admin/seen-notifications',
+				headers: {
+					Authorization: `Bearer ${payload.token}`,
+				},
+			}),
+		}),
+		clearAllUnseenNotifications: builder.mutation({
+			query: (payload: UserAuthData) => ({
+				url: `/remove-unseen-notification/${payload.id}`,
+				method: 'PATCH',
+				headers: {
+					Authorization: `Bearer ${payload.token}`,
+				},
+			}),
+		}),
+		clearALlSeenNotifications: builder.mutation({
+			query: (payload: UserAuthData) => ({
+				url: `/remove-seen-notification/${payload.id}`,
+				method: 'PATCH',
+				headers: {
+					Authorization: `Bearer ${payload.token}`,
+				},
+			}),
+		}),
 	}),
 })
 
-export const { useGetUsersQuery, useRegisterUserMutation, useGetUserDetailsMutation, useGetAdminUnseenNotificationsMutation } = userApi
+export const {
+	useGetUsersQuery,
+	useRegisterUserMutation,
+	useGetUserDetailsMutation,
+	useGetAdminUnseenNotificationsMutation,
+	useGetAdminSeenNotificationsMutation,
+	useClearALlSeenNotificationsMutation,
+	useClearAllUnseenNotificationsMutation,
+} = userApi

@@ -1,7 +1,8 @@
-import { Button, Col, Result, Row, Space, Spin } from 'antd'
+import { Button, Result } from 'antd'
 import React, { Fragment, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useVerifyUserMutation } from '../../Reducer/Api/AuthApi'
+import CommonLoading from '../../Common/Layout/CommonLoading'
 
 const VerifyUser = () => {
 	let { token } = useParams()
@@ -15,15 +16,7 @@ const VerifyUser = () => {
 
 	return (
 		<Fragment>
-			{isLoading && (
-				<Row>
-					<Col span={8} offset={8}>
-						<Space style={{ marginLeft: '48%' }} align='center' size='middle'>
-							<Spin tip='Loading' size='large' />
-						</Space>
-					</Col>
-				</Row>
-			)}
+			{isLoading && <CommonLoading />}
 			{data && (
 				<Result
 					status='success'

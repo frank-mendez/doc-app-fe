@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row, Space, Spin } from 'antd'
+import { Button, Form, Input } from 'antd'
 import Title from 'antd/es/typography/Title'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
@@ -11,6 +11,7 @@ import { logout, setAuthUser } from '../../Reducer/Features/authSlice'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import './Login.style.scss'
 import { removeUser, setUser } from '../../Reducer/Features/userSlice'
+import CommonLoading from '../../Common/Layout/CommonLoading'
 
 const Login = () => {
 	const dispatch = useDispatch()
@@ -59,13 +60,7 @@ const Login = () => {
 				Login Here
 			</Title>
 			{isLoading ? (
-				<Row>
-					<Col span={8} offset={8}>
-						<Space style={{ marginLeft: '48%' }} align='center' size='middle'>
-							<Spin tip='Loading' size='large' />
-						</Space>
-					</Col>
-				</Row>
+				<CommonLoading />
 			) : (
 				<Form name='normal_login' className='login-form' initialValues={{ remember: true }} onFinish={onFinish}>
 					<Form.Item name='username' rules={[{ required: true, message: 'Please input your Username!' }]}>

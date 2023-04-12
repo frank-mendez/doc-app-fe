@@ -53,7 +53,12 @@ const CommonHeader = () => {
 						/>
 					</Badge>
 				) : (
-					<BellOutlined style={{ fontSize: '18px', cursor: 'pointer' }} />
+					<BellOutlined
+						onClick={() => {
+							navigate('/notifications')
+						}}
+						style={{ fontSize: '18px', cursor: 'pointer' }}
+					/>
 				)}
 				<Avatar size='small' style={{ marginLeft: '16px' }}>
 					{user.firstName?.charAt(0)}

@@ -6,6 +6,12 @@ import type { TabsProps } from 'antd'
 
 const { Title } = Typography
 
+export interface INotification {
+	data: any
+	message: string
+	type: string
+}
+
 const Notifications = () => {
 	const items: TabsProps['items'] = [
 		{

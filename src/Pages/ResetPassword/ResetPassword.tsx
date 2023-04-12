@@ -1,10 +1,11 @@
 import React, { Fragment, useEffect } from 'react'
 import { useResetPasswordMutation } from '../../Reducer/Api/AuthApi'
-import { Button, Col, Form, Input, Row, Space, Spin } from 'antd'
+import { Button, Form, Input } from 'antd'
 import { Link, useParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { ResetPasswordDto } from '../../Reducer/Api/types'
 import Title from 'antd/es/typography/Title'
+import CommonLoading from '../../Common/Layout/CommonLoading'
 
 const ResetPassword = () => {
 	let { token } = useParams()
@@ -35,13 +36,7 @@ const ResetPassword = () => {
 				Change Password
 			</Title>
 			{isLoading ? (
-				<Row>
-					<Col span={8} offset={8}>
-						<Space style={{ marginLeft: '48%' }} align='center' size='middle'>
-							<Spin tip='Loading' size='large' />
-						</Space>
-					</Col>
-				</Row>
+				<CommonLoading />
 			) : (
 				<Form style={{ maxWidth: 400 }} name='login' onFinish={onFinish} layout='vertical' className='mx-auto'>
 					<Form.Item label='Email' name='email' rules={[{ required: true, message: 'Please input your Email' }]}>

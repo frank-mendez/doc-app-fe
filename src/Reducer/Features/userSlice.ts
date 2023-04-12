@@ -4,8 +4,8 @@ export interface User {
 	id: string | null
 	email: string | null
 	firstName: string | null
-	unseenNotifications: any
-	seenNotifications: any
+	unseenNotifications: []
+	seenNotifications: []
 }
 
 const initialState: User = {
