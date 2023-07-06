@@ -10,7 +10,7 @@ import './Register.style.scss'
 const { Title } = Typography
 
 const Register = () => {
-	const [registerUser, { isLoading, data }] = useRegisterUserMutation()
+	const [registerUser, { isLoading, data, error }] = useRegisterUserMutation()
 
 	const onFinish = async (values: RegisterDto) => {
 		try {

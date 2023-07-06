@@ -10,6 +10,7 @@ A Frontend service appointment booking system that focus on Medical Doctors. The
 - Doctors can accept or reject appointment
 - Patients can rate the experience of the appointment
 - Doctor can add notes based on the appointment
+- Notifications
 
 ## Tech Stack
 
